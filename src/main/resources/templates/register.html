@@ -6,23 +6,23 @@
 </head>
 <body>
     <div>
-        <form action="/users/register" method="POST">
-            <label for="email">이메일(ID)</label>
-            <input type="text" name="email" id="email">
+        <form action="/users/register" method="post">
+            <label for="user_email">이메일(ID)</label>
+            <input type="text" name="user_email" id="user_email" required>
 
-            <label for="password">비밀번호(PW)</label>
-            <input type="text" name="password" id="password">
+            <label for="user_password">비밀번호(PW)</label>
+            <input type="text" name="user_password" id="user_password" required>
 
-            <label for="name">이름</label>
-            <input type="text" name="name" id="name">
+            <label for="user_name">이름</label>
+            <input type="text" name="user_name" id="user_name" required>
 
-            <label for="phone_num">핸드폰 번호</label>
-            <input type="text" name="phone_num" id="phone_num">
+            <label for="user_phone_num">핸드폰 번호</label>
+            <input type="text" name="user_phone_num" id="user_phone_num" required>
 
-            <label for="nickname">닉네임</label>
-            <input type="text" name="nickname" id="nickname">
+            <label for="user_nickname">닉네임</label>
+            <input type="text" name="user_nickname" id="user_nickname" required>
 
-            <input type="submit">회원가입</input>
+            <input type="submit" value="회원가입">
         </form>
     </div>
 </body>
