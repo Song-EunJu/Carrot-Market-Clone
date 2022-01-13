@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.SessionUser;
-import com.example.demo.service.ProductsService;
+import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,22 +13,20 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping(value="/products")
-public class ProductsController {
-    private ProductsService productsService;
+public class ProductController {
+    private ProductService productService;
 
     @Autowired
-    public ProductsController(ProductsService ProductsService) {
-        this.productsService = ProductsService;
+    public ProductController(ProductService ProductService) {
+        this.productService = ProductService;
     }
 
     @GetMapping("") // localhost:8080/boards 뒤에 / 안쓰려면 빈 문자열 넣어주기
-    public String products(HttpServletRequest request, Model model){
-        System.out.println("gg");
+    public String product(HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
         SessionUser sessionUser = (SessionUser) session.getAttribute("user");
-        model.addAttribute("user", sessionUser.getEmail());
-
-//        model.addAttribute("user", sessionUser);
+        System.out.println("sessionUser.getId() = " + sessionUser.getId());
+        model.addAttribute("uid", sessionUser.getId());
         return "products";
     }
 }

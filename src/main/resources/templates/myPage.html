@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>마이페이지</title>
 </head>
 <body>
     <div>
-        <img src="{로그인 한 사람 db에서 프로필 이미지 꺼내오기">
-        <h3>{로그인한 사람 db에서 닉넨임가져오기}</h3>
+<!--        <img src="{로그인 한 사람 db에서 프로필 이미지 꺼내오기">-->
+        <p th:text="${user.nickname}"></p>
+        <h3></h3>
         <button><a href="">프로필 수정</a></button>
 
     </div>

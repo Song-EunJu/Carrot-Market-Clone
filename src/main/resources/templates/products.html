@@ -8,11 +8,11 @@
     <div>
         <p>개발자님 동네</p>
         <img src="img/find.png">
-        <p th:value="${user}"></p>
+        <p th:text="${uid}"></p>
     </div>
     <div>
         <button onclick="location.href='/boards/'">홈</button>
-        <button onclick="location.href='/users/${userId}'">나의 당근</button>
+        <button th:onclick="'location.href=\'/users/' + ${uid} + '\''">나의 당근</button>
     </div>
 </body>
 </html>

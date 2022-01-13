@@ -8,10 +8,7 @@ import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -63,7 +60,7 @@ public class UserController {
 
         if(user!=null){ // user가 있는 경우 세션 부여하고 담아서 boards로 보내기
             HttpSession session = request.getSession();
-            session.setAttribute("user", new SessionUser(user.getEmail(), user.getPassword()));
+            session.setAttribute("user", new SessionUser(user));
             SessionUser sessionUser = (SessionUser)session.getAttribute("user");
             System.out.println("sessionUser = " + sessionUser);
             return "redirect:/products";
@@ -72,8 +69,14 @@ public class UserController {
     }
 
     // 마이페이지
-    @GetMapping("/mypage")
-    public String mypage() {
+    @GetMapping("/{userId}")
+    public String mypage(Model model, @PathVariable("userId") String userId){
+        Long uid = Long.parseLong(userId);
+        System.out.println("uid = " + uid);
+        User user = userService.findById(uid);
+        System.out.println("user.getEmail() = " + user.getEmail());
+        System.out.println("user.getId() = " + user.getId());
+        model.addAttribute("user", user);
         return "myPage";
     }
 
