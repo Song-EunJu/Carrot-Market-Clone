@@ -5,15 +5,19 @@
     <title>당근마켓 로그인</title>
 </head>
 <body>
-    <div>
-        <form action="/users/login" method="POST">
+<div>
+    <form action="/users/login" method="post">
+        <div>
             <label for="email">이메일(ID)</label>
-            <input type="text" name="email" id="email">
+            <input type="text" name="email" id="email" required>
+        </div>
 
+        <div>
             <label for="password">비밀번호(PW)</label>
-            <input type="text" name="password" id="password">
-            <input type="submit">로그인</input>
-        </form>
-    </div>
+            <input type="text" name="password" id="password" required>
+        </div>
+        <input type="submit" value="로그인">
+    </form>
+</div>
 </body>
 </html>
