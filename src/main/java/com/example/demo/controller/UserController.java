@@ -11,12 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping(value="/users")
 public class UserController {
 
     private UserService userService;
@@ -27,6 +28,7 @@ public class UserController {
     }
 
     // 회원가입
+//    @RequestMapping(value="/register", method= RequestMethod.GET)
     @GetMapping("/register")
     public String register(){
         return "register";
@@ -64,9 +66,7 @@ public class UserController {
             session.setAttribute("user", new SessionUser(user.getEmail(), user.getPassword()));
             SessionUser sessionUser = (SessionUser)session.getAttribute("user");
             System.out.println("sessionUser = " + sessionUser);
-
-//            SessionUser user2 = new SessionUser(sessionUser.getEmail(), sessionUser.getPassword());
-            return "redirect:/boards/";
+            return "redirect:/products";
         }
         return "redirect:/";
     }
