@@ -40,4 +40,12 @@ public class UserService {
             return null;
         }
     }
+
+    public void updateNickname(String nickname, Long id) {
+        Optional<User> user = userRepository.findById(id);
+        user.ifPresent(selectUser -> {
+            selectUser.setNickname(nickname);
+            userRepository.save(selectUser);
+        });
+    }
 }

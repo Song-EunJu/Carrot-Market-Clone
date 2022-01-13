@@ -17,7 +17,7 @@
         <p th:text="${user.nickname}"></p>
     </div>
     <div>
-        <button th:onclick="'location.href=\'/users/' + ${uid} + '/profile\''">프로필 수정</button>
+        <button th:onclick="'location.href=\'/users/' + ${user.id} + '/profile\''">프로필 수정</button>
     </div>
     <div>
         <button>판매내역</button>

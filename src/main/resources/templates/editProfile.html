@@ -5,8 +5,12 @@
     <title>프로필 수정</title>
 </head>
 <body>
-    <img src="">
+    <img th:src="${user.profile_img}">
+<!--    <input type="file">-->
+    <form th:action="@{/users/{userId}/profile(userId=${user.id})}" method="post">
+        <input type="text" th:value="${user.nickname}" name="nickname">
+        <input type="submit" value="완료">
+    </form>
 
-    <p th:text="${}"></p>
 </body>
 </html>

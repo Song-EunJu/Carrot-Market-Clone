@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.domain.User;
 import com.example.demo.dto.SessionUser;
 import com.example.demo.dto.UserLoginDto;
+import com.example.demo.dto.UserProfileDto;
 import com.example.demo.dto.UserRegisterDto;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,8 +82,20 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/profile")
-    public String editProfile(){
+    public String profile(Model model, @PathVariable("userId") String userId){
+        Long uid = Long.parseLong(userId);
+        User user = userService.findById(uid);
+        model.addAttribute("user", user);
         return "editProfile";
+    }
+
+    @PostMapping("/{userId}/profile")
+    public String editProfile(UserProfileDto userProfileDto, Model model, @PathVariable("userId") String userId){
+        Long uid = Long.parseLong(userId);
+        User user = userService.findById(uid);
+        userService.updateNickname(userProfileDto.getNickname(), user.getId());
+        model.addAttribute("user", user);
+        return "myPage";
     }
 
     @GetMapping("/logout")
