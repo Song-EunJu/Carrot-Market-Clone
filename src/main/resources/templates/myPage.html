@@ -6,11 +6,18 @@
 </head>
 <body>
     <div>
-<!--        <img src="{로그인 한 사람 db에서 프로필 이미지 꺼내오기">-->
-        <p th:text="${user.nickname}"></p>
-        <h3></h3>
-        <button><a href="">프로필 수정</a></button>
+        <!-- 프로필 이미지가 없으면 기본 이미지 출력 / 있으면 출력 -->
+        <div th:if="${user.profile_img}==''">
+            <img src="/img/userProfile.png">
+        </div>
+        <div th:unless="${user.profile_img}=='' ">
+            <img th:src="${user.profile_img}">
+        </div>
 
+        <p th:text="${user.nickname}"></p>
+    </div>
+    <div>
+        <button th:onclick="'location.href=\'/users/' + ${uid} + '/profile\''">프로필 수정</button>
     </div>
     <div>
         <button>판매내역</button>

@@ -13,14 +13,18 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/")
 public class MainController {
 
-    @GetMapping("/")
+    @GetMapping("")
     public String firstPage(HttpServletRequest request, RedirectAttributes redirectAttributes){
         HttpSession session = request.getSession();
         SessionUser sessionUser = (SessionUser)session.getAttribute("user");
+        System.out.println("sessionUser = " + sessionUser);
         if(sessionUser!=null) { // 세션 정보가 있으면 상품 페이지로 redirect
             redirectAttributes.addAttribute("user", sessionUser);
-            return "redirect:/boards";
+            return "redirect:/products";
         }
-        return "firstPage";
+        else{
+            System.out.println("hihi");
+            return "firstPage";
+        }
     }
 }

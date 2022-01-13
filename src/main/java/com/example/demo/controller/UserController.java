@@ -80,11 +80,15 @@ public class UserController {
         return "myPage";
     }
 
+    @GetMapping("/{userId}/profile")
+    public String editProfile(){
+        return "editProfile";
+    }
+
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
-
         return "logout";
     }
 
