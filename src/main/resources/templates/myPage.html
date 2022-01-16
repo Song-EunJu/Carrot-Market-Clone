@@ -7,10 +7,10 @@
 <body>
     <div>
         <!-- 프로필 이미지가 없으면 기본 이미지 출력 / 있으면 출력 -->
-        <div th:if="${user.profile_img}==''">
+        <div th:if="${user.profile_img}==null">
             <img src="/img/userProfile.png">
         </div>
-        <div th:unless="${user.profile_img}=='' ">
+        <div th:unless="${user.profile_img}==null">
             <img th:src="${user.profile_img}">
         </div>
         <p th:text="${user.nickname}"></p>
