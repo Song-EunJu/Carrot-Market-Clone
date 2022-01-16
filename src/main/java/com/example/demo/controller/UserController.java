@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 
 @Controller
@@ -99,10 +100,27 @@ public class UserController {
 
     @PostMapping("/{userId}/profile-image")
     public String editProfileImg(@RequestParam("file") MultipartFile files, UserProfileImgDto userProfileDto, Model model, @PathVariable("userId") String userId) throws IOException {
-        System.out.println("files = " + files);
+        String originalName = files.getOriginalFilename();
+        String path = File.separator + "profileImg";
+
+//        String path = System.getProperty("user.home") + "\\CarrotImg"; //여기서 user.home: 사용자의 홈 디렉토리(~)
+        // -> 저같은 경우에는 User/users 라서  Users/user/GaoriVideos 폴더안에 비디오가 저장됨니다
+
+        if (!new File(path).exists()) {  //위의 폴더가 없다면 새로 생성해줌
+            try {
+                new File(path).mkdir();
+            } catch (Exception e) {
+                e.getStackTrace();
+            }
+        }
+        String filePath = path + "\\" + originalName; //해당 경로에 hash값 + mp4 의 파일을 새로 생성해서
+        System.out.println("filePath = " + filePath);
+        files.transferTo(new File(filePath));//실제로 저장시켜줌
+
+
         Long uid = Long.parseLong(userId);
         User user = userService.findById(uid);
-        userService.updateProfileImg(userProfileDto.getProfile_img(), user.getId());
+        userService.updateProfileImg(filePath, user.getId());
         model.addAttribute("user", user);
         return "myPage";
     }
