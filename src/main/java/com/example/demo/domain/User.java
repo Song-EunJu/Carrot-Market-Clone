@@ -37,6 +37,7 @@ public class User {
     @Column(nullable = false, columnDefinition = "TINYINT", length=1)
     private int logged_in;
 
+    @Column
     private String profile_img;
 
     /**

@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.Product;
+import com.example.demo.dto.ProductDto;
 import com.example.demo.dto.SessionUser;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 
 @Controller
 //@RequestMapping(value="/products")
@@ -37,8 +40,20 @@ public class ProductController {
         return "writing"; // 글 작성페이지로
     }
 
-//    @PostMapping("/product")
-//    public String product(){
-//
-//    }
+    @PostMapping("/product")
+    public String product(HttpServletRequest request, Model model, ProductDto productDto){
+        HttpSession session = request.getSession();
+        SessionUser sessionUser = (SessionUser) session.getAttribute("user");
+
+        Long user_id = sessionUser.getId();
+        String title = productDto.getTitle();
+        String content = productDto.getContent();
+        int price = productDto.getPrice();
+        LocalDateTime posted = LocalDateTime.now();
+        int product_status = 1;
+        int post_status = 1;
+        Product product = new Product(user_id, title, content, price, posted, product_status, post_status);
+        productService.save(product);
+        return "products";
+    }
 }

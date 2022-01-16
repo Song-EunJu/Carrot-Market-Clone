@@ -12,18 +12,33 @@
     </div>
 
     <div>
-        <select>
+        <select name="category">
             <option value="">카테고리</option>
-            <option>디지털기기</option>
-            <option>생활가전</option>
+            <option value="digital">디지털기기</option>
+            <option value="interior">가구/인테리어</option>
+            <option value="">유아동</option>
+            <option value="">생활/가공식품</option>
+            <option value="">유아도서</option>
+            <option value="">스포츠/레저</option>
+            <option value="">여성잡화</option>
+            <option value="">여성의류</option>
+            <option value="">남성패션/잡화</option>
+            <option value="">게임/취미</option>
+            <option value="">뷰티/미용</option>
+            <option value="">반려동물용품</option>
+            <option value="">도서/티켓/음반</option>
+            <option value="">식물</option>
+            <option value="">기타 중고물품</option>
+            <option value="">중고차</option>
         </select>
     </div>
-
     <div>
-<!--        디지털기기’, ‘생활가전’, ‘가구/인테리어’, ‘유아동’, ‘생활/가공식품’, ‘유아도서’, ‘스포츠/레저’, ‘여성잡화’, ‘여성의류’, ‘남성패션/잡화’, ‘게임/취미’, ‘뷰티/미용’, ‘반려동물용품’, ‘도서/티켓/음반’, ‘식물’, ‘기타 중고물품’, ‘중고차’-->
-
         <label for="price">가격</label>
         <input type="text" name="price" id="price" required>
+    </div>
+    <div>
+        <label for="content">게시글 내용</label>
+        <input type="textarea" name="content" id="content" required>
     </div>
 
     <input type="submit" value="완료">
