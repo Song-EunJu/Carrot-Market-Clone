@@ -6,11 +6,17 @@
 </head>
 <body>
     <img th:src="${user.profile_img}">
-<!--    <input type="file">-->
-    <form th:action="@{/users/{userId}/profile(userId=${user.id})}" method="post">
+    <form th:action="@{/users/{userId}/profile-nickname(userId=${user.id})}" method="post">
         <input type="text" th:value="${user.nickname}" name="nickname">
         <input type="submit" value="완료">
     </form>
 
+    <form th:action="@{/users/{userId}/profile-image(userId=${user.id})}" method="post" enctype="multipart/form-data">
+        <div class="custom-file" id="inputFile">
+            <label for="profile_img" class="inputFileButton">파일선택</label>
+            <input type="file" id="profile_img" name="profile_img">
+        </div>
+        <input type="submit" value = "업로드" id="submitButton"/>
+    </form>
 </body>
 </html>

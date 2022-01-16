@@ -1,18 +1,17 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.User;
-import com.example.demo.dto.SessionUser;
-import com.example.demo.dto.UserLoginDto;
-import com.example.demo.dto.UserProfileDto;
-import com.example.demo.dto.UserRegisterDto;
+import com.example.demo.dto.*;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Controller
 @RequestMapping(value="/users")
@@ -89,11 +88,21 @@ public class UserController {
         return "editProfile";
     }
 
-    @PostMapping("/{userId}/profile")
+    @PostMapping("/{userId}/profile-nickname")
     public String editProfile(UserProfileDto userProfileDto, Model model, @PathVariable("userId") String userId){
         Long uid = Long.parseLong(userId);
         User user = userService.findById(uid);
         userService.updateNickname(userProfileDto.getNickname(), user.getId());
+        model.addAttribute("user", user);
+        return "myPage";
+    }
+
+    @PostMapping("/{userId}/profile-image")
+    public String editProfileImg(@RequestParam("file") MultipartFile files, UserProfileImgDto userProfileDto, Model model, @PathVariable("userId") String userId) throws IOException {
+        System.out.println("files = " + files);
+        Long uid = Long.parseLong(userId);
+        User user = userService.findById(uid);
+        userService.updateProfileImg(userProfileDto.getProfile_img(), user.getId());
         model.addAttribute("user", user);
         return "myPage";
     }

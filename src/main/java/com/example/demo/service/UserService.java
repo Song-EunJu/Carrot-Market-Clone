@@ -48,4 +48,12 @@ public class UserService {
             userRepository.save(selectUser);
         });
     }
+
+    public void updateProfileImg(String imgUrl, Long id){
+        Optional<User> user = userRepository.findById(id);
+        user.ifPresent(selectUser -> {
+            selectUser.setProfile_img(imgUrl);
+            userRepository.save(selectUser);
+        });
+    }
 }
