@@ -5,7 +5,13 @@
     <title>글 작성</title>
 </head>
 <body>
-<form action="/product" method="post">
+<form action="/product" method="post" enctype="multipart/form-data" class="col m8 s12 offset-m2">
+    <!-- 이미지 다중업로드   -->
+    <div class="input-field col s6">
+        <input multiple="multiple" type="file" name="files"/>
+    </div>
+
+
     <div>
         <label for="title">제목</label>
         <input type="text" name="title" id="title" required>
@@ -14,7 +20,7 @@
     <div>
         <select name="category">
             <option value="">카테고리</option>
-            <option value="digital">디지털기기</option>
+            <option value="digital" name="category">디지털기기</option>
             <option value="interior">가구/인테리어</option>
             <option value="">유아동</option>
             <option value="">생활/가공식품</option>
