@@ -1,3 +1,8 @@
+buildscript {
+	ext {
+		queryDslVersion = "5.0.0"
+	}
+}
 plugins {
 	id 'org.springframework.boot' version '2.6.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -33,7 +38,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'mysql:mysql-connector-java'
 	implementation 'commons-io:commons-io:2.6' // 파일 처리 관련 의존성 주입
-	implementation 'com.querydsl:querydsl-jpa' // querydsl 의존성 추가
+	// querydsl 의존성 추가
+	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 }
 
 // querydsl에서 사용할 경로를 선언
@@ -50,14 +57,17 @@ sourceSets {
 	main.java.srcDir querydslDir
 }
 
-// querydsl이 compileClassPath를 상속하도록 설정
-configurations {
-	querydsl.extendsFrom compileClasspath
-}
-
 // querydsl 컴파일시 사용할 옵션을 설정
 compileQuerydsl {
 	options.annotationProcessorPath = configurations.querydsl
+}
+
+// querydsl이 compileClassPath를 상속하도록 설정
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	querydsl.extendsFrom compileClasspath
 }
 
 test {
