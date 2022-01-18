@@ -5,19 +5,19 @@ import com.example.demo.domain.ProductImage;
 import com.example.demo.domain.User;
 import com.example.demo.repository.ProductImageRepository;
 import com.example.demo.repository.ProductRepository;
-import com.example.demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
     private ProductRepository productRepository;
     private ProductImageRepository productImageRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, ProductImageRepository productImageRepository) {
         this.productRepository = productRepository;
+        this.productImageRepository = productImageRepository;
     }
 
     public void save(Product product) {
@@ -26,6 +26,16 @@ public class ProductService {
     public void saveImage(ProductImage productImage) {
         productImageRepository.save(productImage);
     }
+
+    public Product findById(Long product_id){
+        Optional<Product> product = productRepository.findById(product_id);
+        if(product.isPresent()){
+            return product.get();
+        }else{
+            return null;
+        }
+    }
+
     public List<Product> findAll(){
         return productRepository.findAll();
     }

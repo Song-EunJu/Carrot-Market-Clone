@@ -88,11 +88,12 @@ public class ProductController {
         String savedPath = imgUploadPath + File.separator + originalName;
 
         Product product = new Product(user_id, title, category, content, price, posted, product_status, post_status);
-        ProductImage productImage = new ProductImage(product.getId(), originalName, savedPath);
         productService.save(product);
+        Long productId = productService.findById(product.getId()).getId();
+        ProductImage productImage = new ProductImage(productId, originalName, savedPath);
         productService.saveImage(productImage);
         productService.findAll();
-        model.addAttribute("products",product);
+//        model.addAttribute("products",product);
         return "products";
     }
 }
