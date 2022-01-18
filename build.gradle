@@ -2,6 +2,8 @@ plugins {
 	id 'org.springframework.boot' version '2.6.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	//querydsl 추가
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group = 'com.example'
@@ -31,10 +33,34 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'mysql:mysql-connector-java'
 	implementation 'commons-io:commons-io:2.6' // 파일 처리 관련 의존성 주입
+	implementation 'com.querydsl:querydsl-jpa' // querydsl 의존성 추가
+}
 
+// querydsl에서 사용할 경로를 선언
+def querydslDir = "$buildDir/generated/querydsl"
 
+// querydsl 설정을 추가합니다. JPA 사용 여부와 사용할 경로를 지정
+querydsl {
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+
+// build시 사용할 sourceSet을 추가
+sourceSets {
+	main.java.srcDir querydslDir
+}
+
+// querydsl이 compileClassPath를 상속하도록 설정
+configurations {
+	querydsl.extendsFrom compileClasspath
+}
+
+// querydsl 컴파일시 사용할 옵션을 설정
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
 }
 
 test {
 	useJUnitPlatform()
 }
+
