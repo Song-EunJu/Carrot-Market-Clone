@@ -11,9 +11,23 @@
         <p th:text="${uid}"></p>
     </div>
 
-    <div>
-
-    </div>
+    <table>
+        <tr>
+            <th>상품이름</th>
+            <th>상품이미지</th>
+        </tr>
+        <tr th:each="finalSchedule : ${finalSchedules}">
+            <div class="team-schedule" style="width:400px; background-size: 400px 50px;">
+                <td th:text="${finalSchedule.schedule_title}"></td>
+                <td th:text="${finalSchedule.final_date}"></td>
+                <td th:text="${finalSchedule.final_start_hour}+' :'"></td>
+                <td th:text="${finalSchedule.final_start_min}+' ~'"></td>
+                <td th:text="${finalSchedule.final_end_hour}+' :'"></td>
+                <td th:text="${finalSchedule.final_end_min}"></td>
+                <br/>
+            </div>
+        </tr>
+    </table>
     <button onclick="location.href='/product'">+</button>
     <div>
         <button onclick="location.href='/products'">홈</button>

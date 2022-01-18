@@ -24,10 +24,13 @@ public class ProductImage {
     private String original_name;
 
     @Column(nullable = false)
-    private String save_name;
+    private String image_url;
 
-    @Column(nullable = false)
-    private String image;
-
+    @Builder
+    public ProductImage(Long product_id, String original_name, String image_url) {
+        this.product_id = product_id;
+        this.original_name = original_name;
+        this.image_url = image_url;
+    }
 }
 

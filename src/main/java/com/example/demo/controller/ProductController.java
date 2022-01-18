@@ -61,11 +61,11 @@ public class ProductController {
                 e.getStackTrace();
             }
         }
-
+        String originalName="";
         for(MultipartFile f : file) {
-            String filename = f.getOriginalFilename();
+            originalName = f.getOriginalFilename();
             try {
-                f.transferTo(new File(imgUploadPath + File.separator + filename));
+                f.transferTo(new File(imgUploadPath + File.separator + originalName));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -73,17 +73,26 @@ public class ProductController {
 
         HttpSession session = request.getSession();
         SessionUser sessionUser = (SessionUser) session.getAttribute("user");
+
+        // Product 에 저장되는 요소
         Long user_id = sessionUser.getId();
         String title = productDto.getTitle();
-        String content = productDto.getContent();
         String category = productDto.getCategory();
+        String content = productDto.getContent();
         int price = productDto.getPrice();
         LocalDateTime posted = LocalDateTime.now();
         int product_status = 1; // 판매중
         int post_status = 1; // 게시글 삭제여부
+
+        // ProductImage 에 저장되는 요소
+        String savedPath = imgUploadPath + File.separator + originalName;
+
         Product product = new Product(user_id, title, category, content, price, posted, product_status, post_status);
-//        ProductImage productImage = new ProductImage();
+        ProductImage productImage = new ProductImage(product.getId(), originalName, savedPath);
         productService.save(product);
+        productService.saveImage(productImage);
+        productService.findAll();
+        model.addAttribute("products",product);
         return "products";
     }
 }
